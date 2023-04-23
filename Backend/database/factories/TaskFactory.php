@@ -17,7 +17,10 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'deadline'=>fake()->date(),
+            'name'=> 'untitled',
+            'status'=> 'undone',
+            'description' => [],
         ];
     }
 }

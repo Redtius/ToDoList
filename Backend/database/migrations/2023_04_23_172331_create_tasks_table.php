@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->date('deadline');
-
+            $table->string('name');
+            $table->enum('status',['Done','Undone']);
+            $table->json('Description');
+            $table->foreignId('list_id');
+            $table->foreign('list_id')->references('id')->on('todolist')->CascadeOnDelete();
             $table->timestamps();
         });
     }

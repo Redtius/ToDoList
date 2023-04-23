@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('todolists', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->CascadeOnDelete();
             $table->timestamps();
         });
     }
