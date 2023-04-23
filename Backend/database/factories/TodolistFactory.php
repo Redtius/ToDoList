@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\todolist;
+use App\Models\User;
+use Database\Factories\FactoryHelpers\FactoryHelper;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,10 +17,12 @@ class TodolistFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = todolist::class;
     public function definition(): array
     {
         return [
-            'title' => fake()->name()
+            'title' => fake()->name(),
+            'user_id' => FactoryHelper::GetRandomId(User::class),
         ];
     }
 }

@@ -16,9 +16,9 @@ return new class extends Migration
             $table->date('deadline');
             $table->string('name');
             $table->enum('status',['Done','Undone']);
-            $table->json('Description');
+            $table->text('Description');
             $table->foreignId('list_id');
-            $table->foreign('list_id')->references('id')->on('todolist')->CascadeOnDelete();
+            $table->foreign('list_id')->references('id')->on('todolists')->CascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class todolist extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+      'title'
+    ];
+
+    public function task(){
+        return $this->hasMany(task::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

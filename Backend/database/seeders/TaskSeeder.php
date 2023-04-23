@@ -15,7 +15,8 @@ class TaskSeeder extends Seeder
      */
     public function run(): void
     {
-//        $this->truncate('tasks');
-//        task::factory(20)->create();
+        $table='tasks';
+        $this->truncate($table);
+        task::factory(10)->create();
     }
 }

@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\task;
+use App\Models\todolist;
+use Database\Factories\FactoryHelpers\FactoryHelper;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,13 +17,15 @@ class TaskFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = task::class;
     public function definition(): array
     {
         return [
-            'deadline'=>fake()->date(),
+            'deadline'=>fake()->dateTimeThisYear(),
             'name'=> 'untitled',
-            'status'=> 'undone',
-            'description' => [],
+            'status'=> 'Undone',
+            'Description' => 'Lorem ipsum',
+            'list_id' => FactoryHelper::GetRandomId(todolist::class)
         ];
     }
 }

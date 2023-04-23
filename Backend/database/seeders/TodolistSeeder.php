@@ -17,6 +17,8 @@ class TodolistSeeder extends Seeder
     public function run(): void
     {
         $this->truncate('todolists');
-        $todolists = todolist::factory(3)->has(task::factory(5),'tasks')->create();
+        todolist::factory(3)
+            //->has(task::factory(5),'tasks')
+            ->create();
     }
 }

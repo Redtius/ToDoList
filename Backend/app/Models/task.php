@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class task extends Model
 {
     use HasFactory;
+
+//    protected $casts = [
+//        'Description' => 'array'
+//    ];
+
+    protected $fillable = [
+        'name',
+        'deadline',
+        'status',
+        'Description'
+    ];
+
+    public function todolist(){
+        return $this->belongsTo(todolist::class,'list_id');
+    }
+
+
 }
