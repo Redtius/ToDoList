@@ -13,4 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{any}', 'frontend.index')->where('any','.*');
+//Route::get('/{any}', 'welcome')->where('any','.*');
+Route::get('/', function () {
+    return view('welcome');
+});
