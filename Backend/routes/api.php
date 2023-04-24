@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+require __DIR__ . '/api/tasks.php';
+//require __DIR__ . 'api/todolists.php';
+//require __DIR__ . 'api/users.php';
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

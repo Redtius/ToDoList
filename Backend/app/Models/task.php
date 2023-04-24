@@ -17,6 +17,7 @@ class task extends Model
         'name',
         'deadline',
         'status',
+        'list_id',
         'Description'
     ];
 

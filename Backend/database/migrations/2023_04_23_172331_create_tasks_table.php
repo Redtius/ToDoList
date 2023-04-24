@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->date('deadline');
+            $table->date('deadline')->nullable();
             $table->string('name');
             $table->enum('status',['Done','Undone']);
-            $table->text('Description');
+            $table->text('Description')->nullable();
             $table->foreignId('list_id');
             $table->foreign('list_id')->references('id')->on('todolists')->CascadeOnDelete();
             $table->timestamps();
