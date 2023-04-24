@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatetaskRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdatetaskRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +22,24 @@ class UpdatetaskRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        if($this->method()=='PUT') {
+            return [
+                'name' => ['required'],
+                'deadline' => ['nullable', 'date', 'after:today'],
+                'Description' => ['nullable'],
+                'status' => ['required', Rule::in(['Undone', 'Done'])],
+                //'list_id' => ['required', 'exists:todolists,id'],
+            ];
+        }
+        else{
+            return [
+                'name' => ['sometimes','required'],
+                'deadline' => ['nullable', 'date', 'after:today'],
+                'Description' => ['nullable'],
+                'status' => ['sometimes','required', Rule::in(['Undone', 'Done'])],
+                'list_id' => ['sometimes','required', 'exists:todolists,id'],
+            ];
+
+        }
     }
 }

@@ -27,7 +27,7 @@ class StoretaskRequest extends FormRequest
             'deadline'=> ['nullable','date','after:today'],
             'Description'=> ['nullable'],
             'status'=>['required',Rule::in(['Undone','Done'])],
-            'list_id'=>['required','exists:todolists,id'],
+//            'list_id'=>['required','exists:todolists,id'],
         ];
     }
 }
