@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Validation\Rule;
+
 class StoretodolistRequest extends FormRequest
 {
     /**
@@ -11,7 +13,7 @@ class StoretodolistRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,8 @@ class StoretodolistRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'=>['required'],
+//            'user_id'=>['required']
         ];
     }
 }
