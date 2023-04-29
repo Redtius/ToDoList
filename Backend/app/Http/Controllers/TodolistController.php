@@ -25,7 +25,7 @@ class TodolistController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(int $user_id,StoretodolistRequest $request)
+    public function store(StoretodolistRequest $request,int $user_id)
     {
         $isvalid = User::query()->where('id','=',$user_id)->count() > 0;
 

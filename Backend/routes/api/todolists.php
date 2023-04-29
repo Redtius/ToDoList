@@ -7,7 +7,7 @@ use App\Http\Controllers\TodolistController;
 Route::get('/todolists',[TodolistController::class,'index'])->name('index');
 
 
-Route::post('/users/{user_id}/todolists',[TodolistController::class,'store'])->name('store');
+                                                Route::post('/users/{user_id}/todolists',[TodolistController::class,'store'])->name('store');
 
 Route::get('/todolists/{todolist}',[TodolistController::class,'show'])->name('show');
 
