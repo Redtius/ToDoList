@@ -25,7 +25,7 @@ class StoretodolistRequest extends FormRequest
     {
         return [
             'title'=>['required'],
-            'user_id'=>['required','integer']
+           // 'user_id'=>['required','integer']
         ];
     }
 }
