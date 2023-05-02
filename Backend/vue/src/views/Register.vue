@@ -1,6 +1,6 @@
 <template>
   <div class="border-b border-gray-900/10 pb-12">
-    <h2 class="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
+    <h2 class="text-base font-semibold leading-7 text-gray-900">Register</h2>
     <p class="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
 
     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -49,6 +49,10 @@
       <div>
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
       </div>
+      <p class="mt-10 text-center text-sm text-gray-500">
+        Already a member?
+        <router-link :to="{name:'Login'}" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Login To Your Account</router-link>
+      </p>
 
     </div>
   </div>

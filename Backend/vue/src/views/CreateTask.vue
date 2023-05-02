@@ -1,13 +1,10 @@
 <template>
-  <h1>Todolist</h1>
+
 </template>
 
 <script>
 export default {
-  name: "Todolist",
-  data(){
-
-  }
+  name: "CreateTask"
 }
 </script>
 
