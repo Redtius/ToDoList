@@ -1,70 +1,91 @@
 <template>
-  <div class="border-b border-gray-900/10 pb-12">
-    <h2 class="text-base font-semibold leading-7 text-gray-900">Register</h2>
-    <p class="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
-
-    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-      <div class="sm:col-span-3">
-        <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First name</label>
-        <div class="mt-2">
-          <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-
-      <div class="sm:col-span-3">
-        <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
-        <div class="mt-2">
-          <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-
-      <div class="sm:col-span-4">
-        <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
-        <div class="mt-2">
-          <input id="username" name="username" type="text" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-
-      <div class="sm:col-span-4">
-        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-        <div class="mt-2">
-          <input id="email" name="email" type="email" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-
-      <div class="sm:col-span-3">
-        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-        <div class="mt-2">
-          <input type="password" name="password" id="password" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-
-      <div class="sm:col-span-3">
-        <label for="confirm-password" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
-        <div class="mt-2">
-          <input type="password" name="confirm-password" id="confirm-password" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-
-      <div>
-        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
-      </div>
-      <p class="mt-10 text-center text-sm text-gray-500">
-        Already a member?
-        <router-link :to="{name:'Login'}" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Login To Your Account</router-link>
-      </p>
-
+  <h1 class="text-3xl font-bold">Sign Up</h1>
+  <div class="py-5">
+  <div class="form-control w-screen max-w-xs">
+    <label class="label">
+      <span class="label-text">Email :</span>
+      <span class="label-text-alt">Make sure it's permanent</span>
+    </label>
+    <input type="email" placeholder="E-mail" v-model="this.data.email" class="input input-bordered w-full max-w-xs" />
+  </div> <!--Email Input-->
+  <div class="form-control w-screen max-w-xs">
+    <label class="label">
+      <span class="label-text">Username :</span>
+    </label>
+    <input type="text" placeholder="Username" v-model="this.data.username" class="input input-bordered w-full max-w-xs" />
+  </div> <!--Username Input-->
+  <div class="grid grid-cols-2 max-w-xs gap-4">
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">First Name :</span>
+      </label>
+      <input type="text" placeholder="First Name" v-model="this.data.fname" class="input input-bordered w-full max-w-xs" />
     </div>
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Last Name :</span>
+      </label>
+      <input type="text" placeholder="Last Name" v-model="this.data.lname" class="input input-bordered w-full max-w-xs" />
+    </div>
+  </div> <!--Full Name-->
+  <div class="grid grid-cols-2 max-w-xs gap-4">
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Password :</span>
+      </label>
+      <input type="password" placeholder="Password" v-model="this.data.password" class="input input-bordered w-full max-w-xs" />
+    </div>
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Confirm Password :</span>
+      </label>
+      <input type="password" placeholder="Confirm Password" v-model="this.data.password_confirmation" class="input input-bordered w-full max-w-xs" />
+    </div>
+  </div> <!--Password-->
   </div>
+  <button class="btn max-w-xs " :disabled="!HasInputData" @click="signup" >Sign Up</button>
+
 
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: "Register"
+  name: "Register",
+
+  data(){
+    return {
+      data:{
+      email:'',
+      username:'',
+      fname:'',
+      lname:'',
+      password:'',
+      password_confirmation:''
+     }
+    }
+  },
+
+  computed : {
+    HasInputData: function(){
+      return this.data.email.length>0 &&
+        this.data.username.length>0 &&
+        this.data.fname.length>0 &&
+        this.data.lname.length>0 &&
+        this.data.password.length>0 && this.data.password_confirmation.length>0;
+    },
+  },
+  methods : {
+    async signup(){
+      try{
+      const response = await axios.post('http://localhost:8000/api/register',this.data);
+      console.log((response).data);
+
+    }
+    catch (error){
+        console.error(error)
+    }}
+    }
 }
 </script>
 
-<style scoped>
-
-</style>
