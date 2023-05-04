@@ -1,4 +1,5 @@
 <template>
+  <form @submit.prevent="signup">
   <h1 class="text-3xl font-bold">Sign Up</h1>
   <div class="py-5">
   <div class="form-control w-screen max-w-xs">
@@ -44,13 +45,13 @@
   </div> <!--Password-->
   </div>
   <button class="btn max-w-xs " :disabled="!HasInputData" @click="this.signup" >Sign Up</button>
+  </form>
 
 
 </template>
 
 <script>
-import store from "../store/store.js";
-import {mapActions,mapState} from 'vuex';
+import {mapActions} from 'vuex';
 export default {
   name: "Register",
 

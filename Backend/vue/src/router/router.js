@@ -4,6 +4,7 @@ import register from "../views/Register.vue";
 import Todolists from "../views/Todolists.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
 import Tasks from "../views/Tasks.vue";
+import store from "../store/store.js";
 
 
 
@@ -47,8 +48,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to,from,next)=>{
-  if(to.meta.RequiresAuth){
+  const isAuth = store.state.user.token;
+  if(to.meta.RequiresAuth && !isAuth ){
     next({name:'login'})
+  }
+  else if (!to.meta.RequiresAuth && isAuth)
+  {
+    next({name:'Todolists'})
   }
   else
   {
