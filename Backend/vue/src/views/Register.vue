@@ -43,13 +43,14 @@
     </div>
   </div> <!--Password-->
   </div>
-  <button class="btn max-w-xs " :disabled="!HasInputData" @click="signup" >Sign Up</button>
+  <button class="btn max-w-xs " :disabled="!HasInputData" @click="this.signup" >Sign Up</button>
 
 
 </template>
 
 <script>
-import axios from 'axios';
+import store from "../store/store.js";
+import {mapActions,mapState} from 'vuex';
 export default {
   name: "Register",
 
@@ -73,19 +74,17 @@ export default {
         this.data.fname.length>0 &&
         this.data.lname.length>0 &&
         this.data.password.length>0 && this.data.password_confirmation.length>0;
-    },
+    }
+
   },
   methods : {
-    async signup(){
-      try{
-      const response = await axios.post('http://localhost:8000/api/register',this.data);
-      console.log((response).data);
-
+    ...mapActions([
+      'signup'
+    ]),
+    signup(){
+      this.$store.dispatch('signup',this.data)
     }
-    catch (error){
-        console.error(error)
-    }}
-    }
+    },
 }
 </script>
 
