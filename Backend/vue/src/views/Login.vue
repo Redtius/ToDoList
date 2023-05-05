@@ -49,15 +49,7 @@ export default {
     login(){
       this.$store.dispatch('login',this.data);
     },
-    test(){
-      console.log(this.user.token);
-    }
-
   }
 
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -18,6 +18,13 @@ const store = createStore(
         },
         token: sessionStorage.getItem('TOKEN') ,
       },
+      todolists:{
+        data:{
+          id:'',
+          title:'',
+          created_at:'',
+        }
+      },
     },
     getters:{},
     mutations:{
@@ -47,6 +54,9 @@ const store = createStore(
         sessionStorage.removeItem('FNAME');
         sessionStorage.removeItem('LNAME');
         sessionStorage.removeItem('TOKEN');
+      },
+      SetLists(state,payload){
+        state.todolists.data=payload;
       }
     },
     actions: {
@@ -70,29 +80,43 @@ const store = createStore(
           console.error(error)
         }
       },
-      async logout({commit}){
-        try{
-          const token=store.state.user.token;
+      async logout({commit}) {
+        try {
+          const token = store.state.user.token;
           console.log('1')
           const config = {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: {Authorization: `Bearer ${token}`}
           };
-          await axios.post('logout',null,config);
+          await axios.post('logout', null, config);
           commit('ClearUserData');
           router.push('/Login');
-        }catch(error){
+        } catch (error) {
           console.error(error)
-          if (error.response && error.response.status === 401){
+          if (error.response && error.response.status === 401) {
             commit('ClearUserData')
             router.push('/Login');
           }
         }
-
-      }
+      },
+      async GetLists({commit}) {
+        try {
+          const token = store.state.user.token;
+          const config = {
+            headers: {Authorization: `Bearer ${token}`}
+          };
+          const response = await axios.get('/users/' + store.state.user.data.id + '/todolists', config)
+          commit('SetLists',response.data)
+        } catch (error) {
+          console.error(error)
+          if (error.response && error.response.status === 401) {
+            commit('ClearUserData')
+            router.push('/Login');
+          }
+        }
+      },
     },
-
-    modules:{}
-  }
+      modules: {}
+    }
 )
 
 export default store;

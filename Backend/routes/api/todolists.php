@@ -14,7 +14,7 @@ Route::group(['middleware'=>['auth:sanctum']],function() {
 });
 
 //Public Routes
-Route::get('/todolists',[TodolistController::class,'index'])->name('index');
+Route::get('/users/{user}/todolists',[TodolistController::class,'index'])->name('index');
 
 Route::get('/todolists/{todolist}',[TodolistController::class,'show'])->name('show');
 
