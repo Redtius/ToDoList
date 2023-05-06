@@ -5,6 +5,8 @@ import './index.css';
 import router from "./router/router.js";
 import store from "./store/store.js";
 import setAxiosDefaults from "./axios.js";
+import '@fortawesome/fontawesome-free/css/all.css';
+
 
 createApp(App)
   .use(store)

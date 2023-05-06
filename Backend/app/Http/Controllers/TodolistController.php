@@ -15,7 +15,7 @@ class TodolistController extends Controller
      */
     public function index($user)
     {
-        $created = todolist::query()->get()->where('user_id','=','2');
+        $created = todolist::query()->get()->where('user_id','=',$user);
 
         return new JsonResponse([
             'data'=>$created

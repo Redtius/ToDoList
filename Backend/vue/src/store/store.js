@@ -9,6 +9,7 @@ const store = createStore(
     state:{
       user:{
         data:{
+          id:sessionStorage.getItem('UID'),
           email:sessionStorage.getItem('EMAIL'),
           username:sessionStorage.getItem('USERNAME'),
           fname:sessionStorage.getItem('FNAME'),
@@ -30,6 +31,7 @@ const store = createStore(
     mutations:{
       SetUser(state,payload){
         state.user.data=payload.user;
+        sessionStorage.setItem('UID',payload.user.id);
         sessionStorage.setItem('EMAIL',payload.user.email);
         sessionStorage.setItem('USERNAME',payload.user.username);
         sessionStorage.setItem('FNAME',payload.user.fname);
@@ -40,6 +42,7 @@ const store = createStore(
       ClearUserData(state){
         state.user = {
           data: {
+            id:'',
             email: '',
             username: '',
             fname: '',
@@ -49,6 +52,7 @@ const store = createStore(
           },
           token: ''
         };
+        sessionStorage.removeItem('UID')
         sessionStorage.removeItem('EMAIL');
         sessionStorage.removeItem('USERNAME');
         sessionStorage.removeItem('FNAME');
@@ -106,6 +110,21 @@ const store = createStore(
           };
           const response = await axios.get('/users/' + store.state.user.data.id + '/todolists', config)
           commit('SetLists',response.data)
+        } catch (error) {
+          console.error(error)
+          if (error.response && error.response.status === 401) {
+            commit('ClearUserData')
+            router.push('/Login');
+          }
+        }
+      },
+      async CreateList({commit},FormData){
+        try {
+          const token = store.state.user.token;
+          const config = {
+            headers: {Authorization: `Bearer ${token}`}
+          };
+          await axios.post('/users/'+store.state.user.data.id+'/todolists',FormData,config)
         } catch (error) {
           console.error(error)
           if (error.response && error.response.status === 401) {
