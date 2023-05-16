@@ -16,8 +16,8 @@
           <div class="flex justify-center items-center w-full  col-span-1">
             <i class="fa-solid fa-pen text-neutral-700 hover:animate-pulse cursor-pointer"></i>
           </div>
-          <div class="flex justify-center items-center w-full  col-span-1">
-            <i class="fa-solid fa-circle-xmark text-red-700 hover:animate-pulse cursor-pointer"></i>
+          <div class="flex justify-center items-center w-full col-span-1">
+            <i class="fa-solid fa-circle-xmark text-red-700 hover:animate-pulse cursor-pointer" @click="DeleteList(todolist.id)" ></i>
           </div>
         </td>
       </tr>
@@ -51,6 +51,7 @@ export default {
     return {Lists : [{title:'',created_at: ''}],
     NewList:{data:{title:''}},
       loading:false,
+      updating:false,
     }
   },
 
@@ -70,7 +71,16 @@ export default {
       this.$store.dispatch('CreateList',this.NewList.data)
       await this.$store.dispatch('GetLists').then(()=>{this.Lists=this.todolists.data})
       this.loading=false
-    }
+    },
+    async UpdateList(){
+      this.updating=true;
+    },
+    async DeleteList(id){
+      this.loading=true
+      this.$store.dispatch('DeleteList',id)
+      await this.$store.dispatch('GetLists').then(()=>{this.Lists=this.todolists.data})
+      this.loading=false
+    },
 
 
   },

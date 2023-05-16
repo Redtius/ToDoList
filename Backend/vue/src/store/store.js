@@ -133,20 +133,20 @@ const store = createStore(
           }
         }
       },
-      async DeleteList({commit},FormData)
+      async DeleteList({commit},id)
       {
         try {
           const token = store.state.user.token;
           const config = {
             headers: {Authorization: `Bearer ${token}`}
           };
-          await axios.delete('/users/'+store.state.user.data.id+'/todolists',FormData,config)
+          await axios.delete('/todolists/'+id,FormData,config)
         } catch (error) {
           console.error(error)
-          if (error.response && error.response.status === 401) {
-            commit('ClearUserData')
-            router.push('/Login');
-          }
+          // if (error.response && error.response.status === 401) {
+          //   commit('ClearUserData')
+          //   router.push('/Login');
+          // }
         }
       }
     },
