@@ -14,9 +14,9 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($listid)
     {
-        $task = task::query()->get();
+        $task = task::query()->get()->where('list_id','=',2);
 
         return new JsonResponse([
             'data' => $task

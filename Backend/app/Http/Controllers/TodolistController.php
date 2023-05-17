@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\todolist;
 use App\Http\Requests\StoretodolistRequest;
-use App\Http\Requests\UpdatetodolistRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class TodolistController extends Controller
 {
@@ -72,38 +72,12 @@ class TodolistController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatetodolistRequest $request, $todolist)
+    public function update(StoretodolistRequest $request,$todolist)
     {
-        if ($request->has('id') || $request->has('user_id')) {
-            return new JsonResponse([
-                'message' => 'The "id" attribute cannot be updated.'
-            ], 400);
-        }
 
-        $todolist=todolist::find($todolist);
-        if(!$todolist)
-        {
-            return new JsonResponse([
-                'message'=>'Invalid List'
-            ],400);
-        }
 
-        $updated = $todolist->update([
-            'title' => $request->title?? $request->title
-        ]);
-
-        if(!$updated)
-        {
-            return new JsonResponse([
-                'data'=>'Failed To Update'
-            ],400);
-        }
-
-        return new JsonResponse(
-            [
-                'data'=>$todolist
-            ]
-        );
+        // Return the updated todolist as a JSON response
+        return $request->all();
     }
 
     /**

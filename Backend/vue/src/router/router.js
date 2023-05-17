@@ -7,8 +7,6 @@ import Tasks from "../views/Tasks.vue";
 import store from "../store/store.js";
 
 
-
-
 const routes = [
   {
     path:'/login',
@@ -33,12 +31,11 @@ const routes = [
     name:'Todolists',
     component:Todolists,
   },
-  // {
-  //   path:'/Todolists/:id',
-  //   name:':id',
-  //   component:Tasks,
-  //   props:true
-  // }
+  {
+    path:'/Todolists/:Listid',
+    name:'List',
+    component:Tasks,
+  }
   ]
   },
 ]

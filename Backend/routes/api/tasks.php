@@ -13,7 +13,7 @@ Route::group(['middleware'=>['auth:sanctum']],function (){
 
     Route::delete('/tasks/{task}',[TaskController::class,'destroy'])->name('destroy');
 
-    Route::get('/tasks',[TaskController::class,'index'])->name('index');
+    Route::get('/{listid}/tasks',[TaskController::class,'index'])->name('index');
 });
 
 //public routes

@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 use Illuminate\Validation\Rule;
 
-class StoretaskRequest extends FormRequest
+class UpdatelistRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +24,8 @@ class StoretaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>['required'],
-//            'deadline'=> ['nullable','date','after:today'],
-//            'Description'=> ['nullable'],
-//            'status'=>['required',Rule::in(['Undone','Done'])],
-//            'list_id'=>['required','exists:todolists,id'],
+            'title'=>['required'],
+           // 'user_id'=>['required','integer']
         ];
     }
 }

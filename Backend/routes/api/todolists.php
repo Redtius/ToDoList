@@ -6,7 +6,7 @@ use App\Http\Controllers\TodolistController;
 Route::group(['middleware'=>['auth:sanctum']],function() {
     Route::put('/todolists/{todolist}',[TodolistController::class,'update'])->name('update');
 
-    Route::patch('/todolists/{todolist}',[TodolistController::class,'update'])->name('update');
+    Route::patch('/update/{todolist}',[TodolistController::class,'update'])->name('update');
 
     Route::delete('/todolists/{todolist}',[TodolistController::class,'destroy'])->name('destroy');
 

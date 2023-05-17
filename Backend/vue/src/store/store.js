@@ -1,7 +1,9 @@
 import {createStore} from "vuex";
 import axios from "axios";
+import qs from "qs";
 import '../axios.js';
 import router from "../router/router.js";
+import todolists from "../views/Todolists.vue";
 
 
 const store = createStore(
@@ -26,9 +28,24 @@ const store = createStore(
           created_at:'',
         }
       },
+      currentlist:{
+        data:{
+          id:'',
+        }
+      },
+      tasks:{
+        data:{
+          id:'',
+          name:'',
+          deadline:'',
+          status:'',
+        }
+
+      }
     },
     getters:{},
     mutations:{
+
       SetUser(state,payload){
         state.user.data=payload.user;
         sessionStorage.setItem('UID',payload.user.id);
@@ -39,6 +56,7 @@ const store = createStore(
         state.user.token=payload.token;
         sessionStorage.setItem('TOKEN',payload.token)
       },
+
       ClearUserData(state){
         state.user = {
           data: {
@@ -59,11 +77,35 @@ const store = createStore(
         sessionStorage.removeItem('LNAME');
         sessionStorage.removeItem('TOKEN');
       },
+
       SetLists(state,payload){
         state.todolists.data=payload;
+      },
+
+      SetTasks(state,payload){
+        state.tasks=payload.data;
+      },
+
+      Updatetitle(id,title){
+        const list= state.todolists.find((data)=>data.id === id);
+        if(list)
+        {
+          list.title=title;
+        }
+      },
+
+      SetCurrentList(id){
+        store.state.currentlist.data.id=id;
       }
     },
+
+
+    /*Here's the actions where there's all the requests*/
+
+
     actions: {
+
+
       async signup({commit}, FormData) {
         try {
           const response = await axios.post('register', FormData);
@@ -74,6 +116,8 @@ const store = createStore(
           console.error(error)
         }
       },
+
+
       async login({commit}, FormData) {
         try {
           const response = await axios.post('login', FormData);
@@ -84,6 +128,8 @@ const store = createStore(
           console.error(error)
         }
       },
+
+
       async logout({commit}) {
         try {
           const token = store.state.user.token;
@@ -102,6 +148,8 @@ const store = createStore(
           }
         }
       },
+
+
       async GetLists({commit}) {
         try {
           const token = store.state.user.token;
@@ -118,6 +166,8 @@ const store = createStore(
           }
         }
       },
+
+
       async CreateList({commit},FormData){
         try {
           const token = store.state.user.token;
@@ -133,6 +183,8 @@ const store = createStore(
           }
         }
       },
+
+
       async DeleteList({commit},id)
       {
         try {
@@ -140,15 +192,50 @@ const store = createStore(
           const config = {
             headers: {Authorization: `Bearer ${token}`}
           };
-          await axios.delete('/todolists/'+id,FormData,config)
+          await axios.delete('/todolists/'+id,[],config)
         } catch (error) {
           console.error(error)
-          // if (error.response && error.response.status === 401) {
-          //   commit('ClearUserData')
-          //   router.push('/Login');
-          // }
+          if (error.response && error.response.status === 401) {
+            commit('ClearUserData')
+            router.push('/Login');
+          }
         }
-      }
+      },
+
+
+      async Gettasks({commit}) {
+        try {
+          const token = store.state.user.token;
+          const config = {
+            headers: {Authorization: `Bearer ${token}`}
+          };
+          const response = await axios.get('/'+ store.state.currentlist.data.id + '/tasks', config)
+          commit('SetTasks',response.data)
+        } catch (error) {
+          console.error(error)
+          if (error.response && error.response.status === 401) {
+            commit('ClearUserData')
+            router.push('/Login');
+          }
+        }
+      },
+
+      async CreateTask({commit},FormData){
+        try {
+          const token = store.state.user.token;
+          const config = {
+            headers: {Authorization: `Bearer ${token}`}
+          };
+          await axios.post('/todolists/'+store.state.currentlist.data.id+'/tasks',FormData,config)
+        } catch (error) {
+          console.error(error)
+          if (error.response && error.response.status === 401) {
+            commit('ClearUserData')
+            router.push('/Login');
+          }
+        }
+      },
+
     },
       modules: {}
     }

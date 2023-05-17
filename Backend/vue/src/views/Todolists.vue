@@ -10,12 +10,15 @@
       <div v-if="loading" class="text-center"><progress class="progress w-56"></progress></div>
       <tbody v-else>
       <tr v-for="todolist in this.Lists" :key="todolist.id" class="grid grid-cols-4">
-        <td class="col-span-2 bg-inherit hover:animate-pulse cursor-pointer">{{todolist.title}}</td>
+<!--        <td v-if="updating" class="col-span-2 bg-inherit hover:animate-pulse cursor-pointer">-->
+<!--          <input type="text" :placeholder="todolist.title" v-model="Newtitle" @keyup.enter="UpdateList(todolist.id)" class="input w-full max-w-xs text-gray-500 active:bg-neutral-700 focus:text-black" />-->
+<!--        </td>-->
+        <td @click="Gotolist(todolist.id)" class="col-span-2 bg-inherit hover:animate-pulse cursor-pointer">{{todolist.title}}</td>
         <td class="col-span-1 bg-inherit cursor-default">{{todolist.created_at.substring(0,10)}}</td>
         <td class="col-span-1 grid grid-cols-2 bg-inherit">
-          <div class="flex justify-center items-center w-full  col-span-1">
-            <i class="fa-solid fa-pen text-neutral-700 hover:animate-pulse cursor-pointer"></i>
-          </div>
+<!--          <div class="flex justify-center items-center w-full  col-span-1">-->
+<!--            <i class="fa-solid fa-pen text-neutral-700 hover:animate-pulse cursor-pointer" @click="SetUpdate"></i>-->
+<!--          </div>-->
           <div class="flex justify-center items-center w-full col-span-1">
             <i class="fa-solid fa-circle-xmark text-red-700 hover:animate-pulse cursor-pointer" @click="DeleteList(todolist.id)" ></i>
           </div>
@@ -41,7 +44,7 @@
 
 <script>
 
-import {mapActions, mapState} from "vuex";
+import {mapActions, mapState,mapMutations} from "vuex";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 export default {
@@ -52,6 +55,7 @@ export default {
     NewList:{data:{title:''}},
       loading:false,
       updating:false,
+      Newtitle:'',
     }
   },
 
@@ -64,31 +68,36 @@ export default {
   },
   methods:{
     ...mapActions[(
-      'GetLists'
+      'GetLists',
+      'CreateList',
+        'DeleteList'
     )],
+
+    ...mapMutations([
+      'SetCurrentList'
+    ]),
     async AddList(){
-      this.loading=true
       this.$store.dispatch('CreateList',this.NewList.data)
       await this.$store.dispatch('GetLists').then(()=>{this.Lists=this.todolists.data})
-      this.loading=false
-    },
-    async UpdateList(){
-      this.updating=true;
     },
     async DeleteList(id){
-      this.loading=true
       this.$store.dispatch('DeleteList',id)
       await this.$store.dispatch('GetLists').then(()=>{this.Lists=this.todolists.data})
-      this.loading=false
+    },
+    Gotolist(id){
+      console.log('test');
+      this.SetCurrentList(id);
+      this.$router.push({name:'List',params:{Listid:id}});
     },
 
 
   },
+
+
   async created(){
     this.loading=true;
     await this.$store.dispatch('GetLists').then(()=>{this.Lists=this.todolists.data})
     this.loading=false;
-
   },
 }
 </script>
