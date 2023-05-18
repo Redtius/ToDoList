@@ -46,6 +46,7 @@
 
 import {mapActions, mapState,mapMutations} from "vuex";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import store from "../store/store.js";
 
 export default {
   name: "Todolists",
@@ -85,8 +86,8 @@ export default {
       await this.$store.dispatch('GetLists').then(()=>{this.Lists=this.todolists.data})
     },
     Gotolist(id){
-      console.log('test');
-      this.SetCurrentList(id);
+      console.log(id)
+      this.$store.commit('SetCurrentList',id);
       this.$router.push({name:'List',params:{Listid:id}});
     },
 

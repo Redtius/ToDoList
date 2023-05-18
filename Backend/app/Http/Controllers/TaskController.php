@@ -16,7 +16,7 @@ class TaskController extends Controller
      */
     public function index($listid)
     {
-        $task = task::query()->get()->where('list_id','=',2);
+        $task = task::query()->get()->where('list_id','=',$listid);
 
         return new JsonResponse([
             'data' => $task
@@ -40,8 +40,8 @@ class TaskController extends Controller
 
         $created = task::query()->create([
             'name' => $request->name,
-            'deadline'=>$request->deadline,
-            'Description'=>$request->Description,
+            'deadline'=>null,
+            'Description'=>" ",
             'list_id'=>$list_id,
             'status'=>$request->status
         ]);

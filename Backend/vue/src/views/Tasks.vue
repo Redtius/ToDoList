@@ -35,22 +35,13 @@
 
       </td>
     </tr>
-    <tr class="grid grid-cols-2 py-2">
-      <td class="flex justify-start">
+    <tr class="flex justify-center">
+      <td class="">
         <div class="form-control">
           <label class="label cursor-pointer">
-            <input>
+            <input type="text" v-model="NewTask.name" placeholder="New Task?" class="input input-ghost w-full max-w-xs" @keyup.enter="CreateTask()" />
           </label>
         </div>
-
-      </td>
-      <td class="">
-        <div class="flex justify-end">
-
-          <input type="checkbox" class="checkbox checkbox-primary text-md mx-2.5" />
-
-        </div>
-
       </td>
 
     </tr>
@@ -69,7 +60,7 @@ export default {
   data(){
     return {
      Tasks : [{name:'',status:'',created_at: ''}],
-      NewTask : [{name:'',status:'Undone'}],
+      NewTask : {name:'',status:'Undone'},
 
       }
   },

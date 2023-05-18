@@ -30,7 +30,7 @@ const store = createStore(
       },
       currentlist:{
         data:{
-          id:'',
+          id:sessionStorage.getItem('LISTID'),
         }
       },
       tasks:{
@@ -94,8 +94,10 @@ const store = createStore(
         }
       },
 
-      SetCurrentList(id){
-        store.state.currentlist.data.id=id;
+      SetCurrentList(state,id){
+        console.log(id)
+        sessionStorage.setItem('LISTID',id)
+        console.log(sessionStorage.getItem('LISTID'))
       }
     },
 
@@ -174,7 +176,9 @@ const store = createStore(
           const config = {
             headers: {Authorization: `Bearer ${token}`}
           };
-          await axios.post('/users/'+store.state.user.data.id+'/todolists',FormData,config)
+
+          console.log(state.user.data.id);
+          await axios.post('/users/'+state.user.data.id+'/todolists',FormData,config)
         } catch (error) {
           console.error(error)
           if (error.response && error.response.status === 401) {
@@ -226,7 +230,7 @@ const store = createStore(
           const config = {
             headers: {Authorization: `Bearer ${token}`}
           };
-          await axios.post('/todolists/'+store.state.currentlist.data.id+'/tasks',FormData,config)
+          await axios.post('/todolists/'+ store.state.currentlist.data.id+'/tasks',FormData,config)
         } catch (error) {
           console.error(error)
           if (error.response && error.response.status === 401) {
