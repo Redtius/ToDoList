@@ -7,6 +7,8 @@ use App\Http\Controllers\TaskController;
 Route::group(['middleware'=>['auth:sanctum']],function (){
     Route::post('/todolists/{list_id}/tasks',[TaskController::class,'store'])->name('store');
 
+    Route::post('/{task}/{status}',[TaskController::class,'Togglestatus'])->name('Togglestatus');
+
     Route::put('/tasks/{task}',[TaskController::class,'update'])->name('update');
 
     Route::patch('/tasks/{task}',[TaskController::class,'update'])->name('update');

@@ -129,4 +129,17 @@ class TaskController extends Controller
 
 
     }
+
+    public function Togglestatus(Task $task,$status)
+    {
+        if($status==1)
+        {
+            $task->update(['status'=>'Done']);
+        }
+        else
+        {
+            $task->update(['status'=>'Undone']);
+
+        }
+    }
 }

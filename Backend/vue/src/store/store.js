@@ -240,6 +240,25 @@ const store = createStore(
         }
       },
 
+      async Togglestatus({commit},{taskid,status}){
+        try {
+          const token = store.state.user.token;
+          const config = {
+            headers: {Authorization: `Bearer ${token}`}
+          };
+          console.log(taskid);
+          console.log(status);
+          await axios.post('/'+taskid+'/'+status,FormData,config)
+          console.log(success);
+        } catch (error) {
+          console.error(error)
+          if (error.response && error.response.status === 401) {
+            commit('ClearUserData')
+            router.push('/Login');
+          }
+        }
+      }
+
     },
       modules: {}
     }

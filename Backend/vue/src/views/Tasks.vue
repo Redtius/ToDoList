@@ -28,8 +28,8 @@
       <td class="">
         <div class="flex justify-end">
 
-          <input v-if="CheckStatus(Task.status)" type="checkbox" checked="Checked" class="checkbox checkbox-primary text-md mx-2.5" />
-          <input v-else type="checkbox" class="checkbox checkbox-primary text-md mx-2.5" />
+          <input v-if="CheckStatus(Task.status)" @click="ToggleChecked(0,Task.id)" type="checkbox" checked="Checked" class="checkbox checkbox-primary text-md mx-2.5" />
+          <input v-else type="checkbox" @click="ToggleChecked(1,Task.id)" class="checkbox checkbox-primary text-md mx-2.5" />
 
         </div>
 
@@ -59,7 +59,7 @@ export default {
   name: "List",
   data(){
     return {
-     Tasks : [{name:'',status:'',created_at: ''}],
+     Tasks : [{id:'',name:'',status:'',created_at: ''}],
       NewTask : {name:'',status:'Undone'},
 
       }
@@ -75,13 +75,12 @@ export default {
   methods:{
     ...mapActions([
       'Gettasks',
-      'CreateTask'
+      'CreateTask',
+      'Togglestatus'
     ]),
 
     CheckStatus(status){
-      if(status="Undone")
-        return false;
-      else return true;
+      return status==="Done";
     },
 
     async CreateTask(){
@@ -89,6 +88,13 @@ export default {
       //update the state
       await this.$store.dispatch('Gettasks').then(()=>{this.Tasks=this.tasks});
     },
+
+    async ToggleChecked(status,taskid){
+      console.log(status);
+        await this.$store.dispatch('Togglestatus',{taskid,status});
+      await this.$store.dispatch('Gettasks').then(()=>{this.Tasks=this.tasks});
+
+    }
 
   },
 
